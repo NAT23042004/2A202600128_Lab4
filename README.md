@@ -46,55 +46,78 @@ echo "OPENAI_API_KEY=your_api_key_here" > .env
 
 ## 🚀 Running the Application
 
-The agent can be run in three different modes:
+The agent can be run in multiple ways with the new package structure. Ensure the virtual environment is activated first:
 
-### 🌐 Option 1: Interactive Web UI (Recommended)
 ```bash
-streamlit run app.py
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### 🧪 Option 1: Run Tests (Recommended for verification)
+```bash
+# From project root
+pytest test/ -v
+```
+
+### 🌐 Option 2: Interactive Web UI (Streamlit)
+```bash
+# Option A: Using Python module syntax
+python3 -m streamlit run src/app/app.py
+
+# Option B: Using PYTHONPATH
+export PYTHONPATH=/path/to/lab4_agent:$PYTHONPATH
+streamlit run src/app/app.py
 ```
 - Opens at `http://localhost:8501`
 - Real-time streaming responses
 - Visual tool usage badges
 - Conversation history maintained
-- Best for demonstrations and interactive use
 
-### 📝 Option 2: Interactive Demo Script
+### 📝 Option 3: Interactive Demo Script
 ```bash
-python demo.py
+# Option A: Using Python module syntax
+python3 -m src.demo
+
+# Option B: Using PYTHONPATH  
+export PYTHONPATH=/path/to/lab4_agent:$PYTHONPATH
+python3 src/demo.py
 ```
 - Pre-configured demonstration queries
 - Automated showcase of agent capabilities
 - All interactions logged to `logs/demo.log`
-- Great for testing and validation
 
-### 💻 Option 3: CLI Chat Loop
-```bash
-python agent.py
-```
-- Terminal-based interactive chat
-- Direct agent communication
-- Detailed console logging
-- Best for debugging and development
 
 ## 📁 Project Structure
 
 ```
 lab4_agent/
-├── agent.py                    # LangGraph agent orchestration & chat loop
-├── tools.py                    # Tool implementations (flights, hotels, budget)
-├── system_prompt.txt           # Agent system prompt & instructions
-├── app.py                      # Streamlit web UI
-├── demo.py                     # Interactive demo script
-├── requirements.txt            # Python dependencies
-├── rubric.md                   # Assignment grading criteria
+├── src/                        # Main source package
+│   ├── __init__.py
+│   ├── agent/
+│   │   ├── __init__.py
+│   │   └── agent.py            # LangGraph agent orchestration
+│   ├── tools/
+│   │   ├── __init__.py
+│   │   └── tools.py            # Tool implementations (flights, hotels, budget)
+│   ├── app/
+│   │   ├── __init__.py
+│   │   └── app.py              # Streamlit web UI
+│   ├── prompt/
+│   │   ├── __init__.py
+│   │   └── system_prompt.txt   # Agent system prompt & instructions
+│   └── demo.py                 # Interactive demo script
 │
 ├── test/                       # Test suite (33 tests, all passing)
 │   ├── __init__.py
-│   ├── test_agent.py          # Agent graph tests
-│   ├── test_tools.py          # Tool implementation tests
-│   └── conftest.py            # Pytest configuration
+│   ├── test_agent.py           # Agent graph tests
+│   ├── test_tools.py           # Tool implementation tests
+│   ├── test_api.py             # API tests
+│   └── conftest.py             # Pytest configuration
 │
+├── requirements.txt            # Python dependencies
+├── conftest.py                 # Root pytest config (sets PYTHONPATH)
+├── .env                        # Environment variables (create this)
 ├── logs/                       # Application logs directory
+└── README.md
 ```
 
 ## 🔧 Technology Stack
@@ -279,14 +302,39 @@ pytest test/ -v -s
 ### Streamlit app not loading
 ```bash
 # Ensure port 8501 is free or use different port
-streamlit run app.py --server.port 8502
+# Using Python module syntax
+python3 -m streamlit run src/app/app.py --server.port 8502
+
+# Or with PYTHONPATH
+export PYTHONPATH=$(pwd):$PYTHONPATH
+streamlit run src/app/app.py --server.port 8502
+```
+
+### ImportError when running scripts directly
+```bash
+# Problem: "ModuleNotFoundError: No module named 'src'"
+# Solution: Set PYTHONPATH before running
+
+# Option 1: Set PYTHONPATH (recommended)
+export PYTHONPATH=$(pwd):$PYTHONPATH
+python3 src/demo.py
+
+# Option 2: Use Python module syntax
+python3 -m src.demo
+
+# Option 3: Run from project root with -m flag
+python3 -m pytest test/ -v
 ```
 
 ### Agent not calling tools
-1. Verify system prompt is loaded: `python3 -c "from agent import SYSTEM_PROMPT; print(SYSTEM_PROMPT[:100])"`
-2. Check `tools_list` in `agent.py` contains all your tools
+1. Verify system prompt is loaded:
+```bash
+export PYTHONPATH=$(pwd):$PYTHONPATH
+python3 -c "from src.agent.agent import SYSTEM_PROMPT; print(SYSTEM_PROMPT[:100])"
+```
+2. Check `tools_list` in `src/agent/agent.py` contains all your tools
 3. Verify tools are bound: `llm_with_tools = llm.bind_tools(tools_list)`
-4. Review logs for detailed execution
+4. Review logs (`logs/demo.log` or `logs/app.log`) for detailed execution
 
 ### Budget calculation seems wrong
 - Verify expense format: `category1:amount1,category2:amount2`

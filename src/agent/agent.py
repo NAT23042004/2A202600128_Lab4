@@ -1,4 +1,5 @@
 from typing import Annotated
+from pathlib import Path
 
 from dotenv import load_dotenv
 from langchain_core.messages import SystemMessage
@@ -6,21 +7,17 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode, tools_condition
-from loguru import logger
 from typing_extensions import TypedDict
 
-from src.tools import calculate_budget, search_flights, search_hotels
-
-# Configure logger
-logger.remove()  # Remove default handler
-logger.add("agent.log", format="{time:YYYY-MM-DD HH:mm:ss.SSS} | {level: <8} | {name}:{function}:{line} - {message}", level="DEBUG")
-logger.add(lambda msg: print(msg, end=""), format="{message}", level="INFO")  # Also print to console
+from src.tools.tools import calculate_budget, search_flights, search_hotels
 
 load_dotenv()
 
 
 # 1. Đọc System Prompt
-with open("system_prompt.txt", "r", encoding="utf-8") as f:
+project_root = Path(__file__).parent.parent
+system_prompt_path = project_root / "prompt" / "system_prompt.txt"
+with open(system_prompt_path, "r", encoding="utf-8") as f:
     SYSTEM_PROMPT = f.read()
 
 
@@ -45,11 +42,10 @@ def agent_node(state: AgentState):
 
     # LOGGING
     if response.tool_calls:
-        logger.info(f"LLM triggered {len(response.tool_calls)} tool call(s)")
         for tc in response.tool_calls:
-            logger.info(f"  → Tool: {tc['name']}, Arguments: {tc['args']}")
+            print(f"Gọi tool: {tc['name']}({tc['args']})")
     else:
-        logger.info("Direct LLM response (no tools used)")
+        print("Trả lời trực tiếp")
 
     return {"messages": [response]}
 
@@ -69,23 +65,17 @@ graph = builder.compile()
 
 # 6. Chat loop
 if __name__ == "__main__":
-    logger.info("=" * 60)
-    logger.info("TravelBuddy - Trợ lý Du lịch Thông minh")
-    logger.info("Type 'quit', 'exit', or 'q' to exit.")
-    logger.info("=" * 60)
+    print("=" * 60)
+    print("TravelBuddy - Trợ lý Du lịch Thông minh")
+    print(" GO 'quit'  để thoát.")
+    print("=" * 60)
 
     while True:
         user_input = input("\nBạn: ").strip()
         if user_input.lower() in ("quit", "exit", "q"):
-            logger.info("User exiting chat loop.")
             break
 
-        logger.info(f"Processing user query: {user_input}")
-        try:
-            result = graph.invoke({"messages": [{"type": "human", "content": user_input}]})
-            final = result["messages"][-1]
-            logger.info(f"Generated response: {final.content[:100]}...")
-            print(f"\nTravelBuddy: {final.content}")
-        except Exception as e:
-            logger.error(f"Error processing query: {str(e)}", exc_info=True)
-            print(f"❌ Error: {str(e)}")
+        print("\nTravelBuddy đang suy nghĩ...")
+        result = graph.invoke({"messages": ["human", user_input]})
+        final = result["messages"][-1]
+        print(f"\nTravelBuddy: {final.content}")

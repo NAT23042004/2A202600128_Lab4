@@ -174,7 +174,7 @@ def search_hotels(city: str, max_price_per_night: int = 9999999) -> str:
 
     # Sắp xếp khách sạn theo số sao giảm dần
     sorted_hotels = sorted(filtered_hotels, key=lambda x: x["stars"], reverse=True)
-    result = f"Danh sách các khách sạn sắp xếp theo rating giảm  dần và có giá một đêm dưới {max_price_per_night}d "
+    result = f"Danh sách các khách sạn sắp xếp theo rating giảm  dần và có giá một đêm dưới {max_price_per_night}d \n"
     for hotel in sorted_hotels:
         result += (
             f"- Khách sạn: {hotel['name']}, Rating: {hotel['stars']}, Giá một đêm: {hotel['price_per_night']:,} VND, \n"
@@ -213,9 +213,9 @@ def calculate_budget(total_budget: int, expenses: str) -> str:
     if remaning_budget < 0:
         return f"!!!Cảnh báo ngân sách còn thiếu {abs(remaning_budget)} VND."
 
-    results = ""
+    results = "Bảng chi tiết các khoản chi:\n"
     for category, expense in expenses_dict.items():
-        results += f"- {category.replace('_', ' ')}: {expense:,}d"
+        results += f"- {category.replace('_', ' ')}: {expense:,}d\n"
 
     results += f"- Ngân sách còn: {total_budget}d \n - Còn lại: {remaning_budget}d"
     return results

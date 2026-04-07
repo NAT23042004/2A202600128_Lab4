@@ -1,18 +1,7 @@
-#!/usr/bin/env python3
-"""
-TravelBuddy Agent Demo
-Trợ lý Du lịch Thông minh - Interactive Demo
-
-This script demonstrates the capabilities of the TravelBuddy agent:
-- Flight search across Vietnamese cities
-- Hotel recommendations with budget filtering
-- Budget calculation and planning
-- Interactive conversation mode
-"""
-
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
 from loguru import logger
+from src.agent.agent import graph
 
 # Load environment variables
 load_dotenv()
@@ -20,8 +9,6 @@ load_dotenv()
 # Setup logging
 logger.add("logs/demo.log")
 
-
-from agent import graph
 
 logger.info("=" * 70)
 logger.info("TravelBuddy - Trợ lý Du lịch Thông minh")

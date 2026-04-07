@@ -1,6 +1,3 @@
-"""
-Shared pytest fixtures and configuration for Lab4 Agent tests
-"""
 
 import os
 import sys

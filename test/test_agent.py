@@ -1,7 +1,7 @@
 import pytest
 from dotenv import load_dotenv
 
-from src.agent import SYSTEM_PROMPT, AgentState, graph
+from src.agent.agent import SYSTEM_PROMPT, AgentState, graph
 
 load_dotenv()
 

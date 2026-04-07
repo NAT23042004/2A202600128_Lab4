@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage
 from loguru import logger
 
-from agent import graph
+from src.agent.agent import graph
 
 # Load environment variables
 load_dotenv()

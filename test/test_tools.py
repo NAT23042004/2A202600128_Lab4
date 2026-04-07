@@ -1,6 +1,6 @@
 import pytest
 
-from src.tools import calculate_budget, search_flights, search_hotels
+from src.tools.tools import calculate_budget, search_flights, search_hotels
 
 
 # Helper wrappers to call tools properly (StructuredTool objects)
