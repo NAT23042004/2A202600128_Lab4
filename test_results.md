@@ -45,60 +45,37 @@ Bạn: Tôi ở Hà Nội, muốn đi Phú Quốc 2 đêm, budget 5 triệu. Tư
 
 TravelBuddy đang suy nghĩ...
 Gọi tool: search_flights({'origin': 'Hà Nội', 'destination': 'Phú Quốc'})
-Gọi tool: search_hotels({'city': 'Phú Quốc', 'max_price_per_night': 2500000})
-Gọi tool: calculate_budget({'total_budget': 5000000, 'expenses': 've_may_bay:1350000,khach_san:3000000'})
+Gọi tool: calculate_budget({'total_budget': 5000000, 'expenses': 've_may_bay:1100000'})
+Gọi tool: search_hotels({'city': 'Phú Quốc', 'max_price_per_night': 1950000})
 Trả lời trực tiếp
 
-TravelBuddy: Dưới đây là thông tin chi tiết cho chuyến đi của bạn từ Hà Nội đến Phú Quốc:
+TravelBuddy: Dưới đây là những gợi ý cho chuyến đi của bạn từ Hà Nội đến Phú Quốc trong 2 đêm với ngân sách 5 triệu:
 
 **Chuyến bay:**
-1. **VietJet Air**
-   - Khởi hành: 10:00
-   - Đến nơi: 12:15
-   - Giá: 1,350,000 VND (vé rẻ nhất)
-
-2. **VietJet Air**
-   - Khởi hành: 16:00
-   - Đến nơi: 18:15
-   - Giá: 1,100,000 VND
-
-3. **Vietnam Airlines**
-   - Khởi hành: 07:00
-   - Đến nơi: 09:15
-   - Giá: 2,100,000 VND
+- **Hãng:** VietJet Air
+- **Giờ khởi hành:** 16:00
+- **Giờ đến nơi:** 18:15
+- **Giá:** 1,100,000 VND
 
 **Khách sạn:**
-1. **Sunset Palms**
-   - Rating: 4 sao
-   - Giá một đêm: 1,500,000 VND
+- **Tên:** Sunset Palms
+  - **Tầm giá:** 1,500,000 VND/đêm
+  - **Tại sao chọn nơi này:** Khách sạn có đánh giá 4 sao, cung cấp các tiện ích tốt và gần bãi biển. Rất phù hợp cho việc thư giãn và vui chơi!
 
-2. **Bai Truong**
-   - Rating: 4 sao
-   - Giá một đêm: 1,500,000 VND
+**Phân tích ngân sách:**
+- **Chi phí vé máy bay:** 1,100,000 VND
+- **Chi phí khách sạn (2 đêm):** 3,000,000 VND  (1,500,000 VND x 2 đêm)
+- **Tổng chi:** 4,100,000 VND
+- **Ngân sách còn lại sau chi tiêu:** 900,000 VND
 
-3. **Duong Kong**
-   - Rating: 4 sao
-   - Giá một đêm: 200,000 VND
+Bạn vẫn còn 900,000 VND để sử dụng cho ăn uống và tham quan tại Phú Quốc. 
 
-4. **Island Resort**
-   - Rating: 3 sao
-   - Giá một đêm: 800,000 VND
+**Gợi ý thêm:**
+- Bạn có thể thử các món hải sản tươi ngon tại các nhà hàng ven biển.
+- Tham quan các địa điểm nổi tiếng như Vinpearl Land, Bãi Sao hay khám phá hệ sinh thái của Vinpearl Safari.
+- Tham gia các hoạt động thể thao biển như lặn ngắm san hô hoặc đi tàu đáy kính.
 
-5. **Station Hostel**
-   - Rating: 3 sao
-   - Giá một đêm: 200,000 VND
-
-Chồng bạn đã chọn khách sạn **Sunset Palms** hoặc **Bai Truong** cho 2 đêm với chi phí 3 triệu VND.
-
-**Tổng chi phí ước tính:**
-- Vé máy bay: 1,350,000 VND
-- Khách sạn (2 đêm): 3,000,000 VND
-- **Tổng:** 4,350,000 VND
-- **Ngân sách còn lại:** 650,000 VND
-
-**Gợi ý thêm:** Tại Phú Quốc, bạn có thể tham gia các hoạt động như lặn ngắm san hô, tham quan Vinpearl Safari, hay thư giãn tại các bãi biển tuyệt đẹp như Bãi Sao, Bãi Dài. Bạn cũng đừng quên thưởng thức hải sản tươi ngon!
-
-Nếu bạn cần đặt vé hoặc có thêm câu hỏi nào, cứ cho mình biết nhé!
+Nếu bạn đồng ý với kế hoạch này, mình có thể giúp bạn đặt vé máy bay và khách sạn luôn nhé!
 
 Test 4 – Missing Info / Clarification
 
