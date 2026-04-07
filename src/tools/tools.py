@@ -167,17 +167,17 @@ def search_hotels(city: str, max_price_per_night: int = 9999999) -> str:
 
     hotels = HOTELS_DB[city]
     # Lọc khách sạn theo max_price_per_night
-    filtered_hotels = [hotel for hotel in hotels if hotel["price_per_night"] <= max_price_per_night]
+    filtered_hotels = [hotel for hotel in hotels if int(hotel["price_per_night"]) <= max_price_per_night]
 
     if not filtered_hotels:
         return f"Không tìm thấy khách sạn tại {city} với giá dưới {max_price_per_night} VND. Hãy thử tăng ngân sách."
 
     # Sắp xếp khách sạn theo số sao giảm dần
-    sorted_hotels = sorted(filtered_hotels, key=lambda x: x["stars"], reverse=True)
+    sorted_hotels = sorted(filtered_hotels, key=lambda x: (-x["stars"], int(x["price_per_night"])))
     result = f"Danh sách các khách sạn sắp xếp theo rating giảm  dần và có giá một đêm dưới {max_price_per_night}d \n"
     for hotel in sorted_hotels:
         result += (
-            f"- Khách sạn: {hotel['name']}, Rating: {hotel['stars']}, Giá một đêm: {hotel['price_per_night']:,} VND, \n"
+            f"- Khách sạn: {hotel['name']}, Rating: {hotel['stars']}, Giá một đêm: {hotel['price_per_night']:,}d, \n"
         )
     return result
 
